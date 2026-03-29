@@ -8,16 +8,28 @@ mutable struct Life
 end
 
 function step!(state::Life)
-    curr = state.current_frame
+    current = state.current_frame
     next = state.next_frame
 
     #=
     TODO: вместо случайного шума
     реализовать один шаг алгоритма "Игра жизнь"
     =#
-    for i in 1:length(curr)
-        curr[i] = rand(0:1)
+    next .= current
+    n, m = size(current)
+    for i in 1:length(current)
+        row, col = Tuple(CartesianIndices(current)[i])
+        neighbors = 0
+        for i in -1:1, j in -1:1
+            (i == 0 && j == 0) && continue
+            neighbors += current[mod1(row + i, n), mod1(col + j, m)]
+        end
+        next[row, col] = (current[row, col] == 1) ? ((neighbors == 2 || neighbors == 3) ? 1 : 0) : ((neighbors == 3) ? 1 : 0)
     end
+    for k in 1:length(current)
+        current[k] = rand(0:1)
+    end
+    state.current_frame, state.next_frame = next, current
 
     # Подсказка для граничных условий - тор:
     # julia> mod1(10, 30)

@@ -38,3 +38,4 @@
 - FieldVector из [StaticArrays](https://juliaarrays.github.io/StaticArrays.jl/stable/api/#FieldVector)
 - Vec2 из [GeometryBasics](https://juliageometry.github.io/GeometryBasics.jl/dev/static_array_types/)
 
+![life.gif](life.gif)
